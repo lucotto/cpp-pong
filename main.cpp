@@ -1,4 +1,5 @@
-#include "interface.h"
+#include "gameinterface.h"
+#include "player.h"
 
 int main(){
     initscr();
@@ -6,11 +7,19 @@ int main(){
     curs_set(0);
     cbreak();
 
-    Interface interface;
+    GameInterface gameInterface;
+    Player player1(gameInterface, 'w', 's');
+    Player player2(gameInterface, 'i', 'k');
 
-    interface.board();
-    interface.text();
-    interface.key();
+    gameInterface.board();
+    gameInterface.text();
+    gameInterface.key();
+
+    while (true){
+        gameInterface.player(player1, player2);
+        player1.move();
+        player2.move();
+    }
 
     getch();
     endwin();

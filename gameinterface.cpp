@@ -1,6 +1,6 @@
-#include "interface.h"
+#include "gameinterface.h"
 
-Interface::Interface(){
+GameInterface::GameInterface(){
     int row, col;
     getmaxyx(stdscr, row, col);
 
@@ -16,7 +16,7 @@ Interface::Interface(){
     this->key2StartCol = this->termCol - KEY_W - 5;
 }
 
-void Interface::board(){
+void GameInterface::board(){
     WINDOW *board = newwin(BOARD_H, BOARD_W, this->boardStartRow, this->boardStartCol);
     refresh();
 
@@ -24,7 +24,7 @@ void Interface::board(){
     wrefresh(board);
 }
 
-void Interface::text(){
+void GameInterface::text(){
     int titleRow = this->boardStartRow - 4;
     int titleCol = this->boardStartCol + (BOARD_W - 4) / 2;
     int player1Row = this->boardStartRow - 1;
@@ -46,7 +46,7 @@ void Interface::text(){
     refresh();
 }
 
-void Interface::key(){
+void GameInterface::key(){
     WINDOW *key1 = newwin(KEY_H, KEY_W, this->key1StartRow, this->key1StartCol);
     WINDOW *key2 = newwin(KEY_H, KEY_W, this->key2StartRow, this->key2StartCol);
     refresh();
@@ -73,3 +73,27 @@ void Interface::key(){
     mvprintw(this->key2StartRow + 3, this->key2StartCol + KEY_W - 6, "Pause");
     refresh();
 }   
+
+void GameInterface::player(Player &p1, Player &p2){
+    COORD coord;
+
+    for (int i = 0; i < p1.getLen(); i++){
+        coord = p1.getBarPiece(i);
+        mvaddch(coord.X, coord.Y, '|');
+    }
+
+    for (int i = 0; i < p2.getLen(); i++){
+        coord = p2.getBarPiece(i);
+        mvaddch(coord.X, coord.Y, '|');
+    }
+
+    refresh();
+}
+
+int GameInterface::getBoardStartRow(){
+    return this->boardStartRow;
+}
+
+int GameInterface::getBoardStartCol(){
+    return this->boardStartCol;
+}

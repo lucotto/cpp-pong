@@ -1,2 +1,2 @@
 main:
-	g++ main.cpp interface.cpp -l:pdcurses.a -o Pong
+	g++ main.cpp gameinterface.cpp player.cpp -lpdcurses -o Pong

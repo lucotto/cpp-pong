@@ -1,17 +1,24 @@
-#ifndef INTERFACE_H
-#define INTERFACE_H
+#ifndef GAMEINTERFACE_H
+#define GAMEINTERFACE_H
 
 #include <curses.h>
 
 #include "const.h"
+#include "player.h"
 
-class Interface{
+class Player;
+
+class GameInterface{
     public:
-        Interface();
+        GameInterface();
 
         void board();
         void text();
         void key();
+        void player(Player &p1, Player &p2);
+
+        int getBoardStartRow();
+        int getBoardStartCol();
 
     private:
         int termRow;
